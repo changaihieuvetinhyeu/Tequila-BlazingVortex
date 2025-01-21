@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="5">
+ <tileset firstgid="1" name="world" tilewidth="64" tileheight="64" tilecount="210" columns="10">
+  <image source="../../../../Game-main (1)/Game-main/graphics/tilesets/world.png" width="640" height="1344"/>
+ </tileset>
+ <tileset firstgid="211" source="C:/Users/admin/Desktop/C++/Test/data/tilesets/indoor.tsx"/>
+ <tileset firstgid="301" name="Ground" tilewidth="64" tileheight="64" tilecount="90" columns="10">
+  <image source="../../../../Game-main (1)/Game-main/graphics/tilesets/indoor.png" width="640" height="576"/>
+ </tileset>
+ <tileset firstgid="391" name="Ground" tilewidth="64" tileheight="64" tilecount="90" columns="10">
+  <image source="../../../../Game-main (1)/Game-main/graphics/tilesets/indoor.png" width="640" height="576"/>
+ </tileset>
+ <tileset firstgid="481" name="Ground" tilewidth="64" tileheight="64" tilecount="90" columns="10">
+  <image source="../../../../Game-main (1)/Game-main/graphics/tilesets/indoor.png" width="640" height="576"/>
+ </tileset>
+ <tileset firstgid="571" source="C:/Users/admin/Desktop/C++/Test/data/tilesets/objects.tsx"/>
+ <layer id="1" name="Ground" width="25" height="15">
+  <data encoding="csv">
+486,487,487,487,487,487,487,487,487,487,487,487,487,487,487,487,487,487,487,487,487,487,487,487,488,
+526,497,497,497,497,497,497,497,497,497,497,497,497,497,497,497,497,497,497,497,497,497,497,497,498,
+526,497,497,497,497,497,509,510,497,497,497,497,497,497,497,509,510,497,497,497,497,497,497,497,498,
+526,507,507,507,507,507,519,520,507,507,507,507,507,507,507,519,520,507,507,507,507,507,507,507,498,
+526,517,517,517,517,517,517,517,517,517,517,517,517,517,517,517,517,517,517,517,517,517,517,517,498,
+526,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,498,
+526,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,498,
+526,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,498,
+526,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,498,
+526,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,498,
+526,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,498,
+526,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,498,
+526,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,498,
+526,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,498,
+266,267,267,499,500,537,537,537,537,537,537,537,537,537,537,537,537,537,537,537,537,537,537,537,538
+</data>
+ </layer>
+ <objectgroup id="4" name="Collisions">
+  <object id="3" x="181.333" y="934.667" width="128" height="24"/>
+ </objectgroup>
+ <objectgroup id="2" name="Objects"/>
+ <objectgroup id="3" name="Entities">
+  <object id="2" name="Player" x="690.666" y="634.667">
+   <point/>
+  </object>
+  <object id="4" name="Enemy" x="861.333" y="634.667">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
