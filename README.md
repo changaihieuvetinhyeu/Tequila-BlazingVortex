@@ -13,6 +13,7 @@
 ## 3. Hướng dẫn cài đặt:
 - Cài đặt thư viện Pygame (pip install pygame)
 - Cài đặt thư viện PyTMX (pip install pytmx)
+- Sau đó vào thư mục code, chọn file main.py. Mở lên rồi bấm Run Python File để chơi 
 
 ## 4. Hướng dẫn chơi:
 - Bấm W,A,S,D hoặc các mũi tên lên xuống để di chuyển nhân vật
