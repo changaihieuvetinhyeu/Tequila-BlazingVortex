@@ -6,12 +6,12 @@ pygame.init()
 
 def intro_screen():
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-    pygame.display.set_caption("Blazer Vortex (Demo)")
+    pygame.display.set_caption("Blazing Vortex (Demo)")
 
-    title_font = pygame.font.Font('data/fonts/FVF Fernando 08.ttf', 74)
-    button_font = pygame.font.Font('data/fonts/FVF Fernando 08.ttf', 40)
+    title_font = pygame.font.Font('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/FVF Fernando 08.ttf', 74)
+    button_font = pygame.font.Font('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/FVF Fernando 08.ttf', 40)
 
-    background = pygame.image.load('images/background/darkened.jpg').convert()
+    background = pygame.image.load('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/mainmenu.jpg').convert()
     background = pygame.transform.scale(background, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
     def draw_intro_screen(mouse_pos):
@@ -86,8 +86,8 @@ def pause_screen(screen):
     alpha = 0  
     tint_speed = 300  
 
-    title_font = pygame.font.Font('data/fonts/FVF Fernando 08.ttf', 74)
-    button_font = pygame.font.Font('data/fonts/FVF Fernando 08.ttf', 40)
+    title_font = pygame.font.Font('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/FVF Fernando 08.ttf', 74)
+    button_font = pygame.font.Font('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/FVF Fernando 08.ttf', 40)
 
     def draw_pause_screen(mouse_pos, alpha):
         pause_overlay.fill((0, 0, 0, alpha))

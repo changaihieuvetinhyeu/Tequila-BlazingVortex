@@ -1,0 +1,123 @@
+{
+    "first_one_dialog": [
+        "Minh Hàn: Em giảng cả tiếng trời anh vẫn không hiểu à?"
+        "Minh Hàn: Ôi Đăng ơi Đăng dùng lửa đốt nhà đốt trường thì chớ sao lại đốt luôn cả não mình thế!",
+    ],
+    "first_two_dialog": [
+        "Thời Đăng: Ý mày muốn gì? Thích đánh nhau à?"
+        "Minh Hàn: Mời!"
+    ],
+    "second_one_dialogue": [
+        "Minh Hàn: Ê! Anh còn sống không đấy?"
+        "Minh Hàn: Chắc là ra tay hơi nặng rồi."
+    ],
+    "second_two_dialogue": [
+        "Thời Đăng: Ủa đây là đâu vậy?"
+        "Thời Đăng: Rõ ràng nãy còn đang choảng nhau với thằng Hàn mà."
+        "Thời Đăng: Thôi kệ, tìm đường ra khỏi đây đã rồi tính."
+    ],
+    "third_mission": [
+        "???: Chào, Thời Đăng."
+        "Thời Đăng: Ai đó? Sao lại biết tên tôi?"
+        "???: Điều đó quan trọng sao?"
+        "???: Chỉ cần biết là tôi có thể giải quyết mọi vấn đề của cậu, thế thôi."
+        "Thời Đăng: Mọi vấn đề sao?"
+        "???: Phải."
+        "Thời Đăng: Thế giúp tôi vượt qua bài khảo nghiệm mấy ngày tới đi."
+        "???: Chỉ cần cậu muốn, nhưng phải có giá nhé! Tôi với cậu đây là đang giao dịch kín đấy. "
+        "???: Vậy cậu cho tôi được gì nào?"
+        "Thời Đăng: Vậy ngươi cần gì?"
+        "???: Đơn giản lắm. Một phần sức mạnh của cậu thôi. Đồng ý chứ?"
+    ],
+    "choice": [
+        "Liệu quyết định của Thời Đăng là gì ?"
+    ],
+    "bad_ending": [
+        "Thời Đăng: Ta không cần sự giúp đỡ của ngươi.",
+        "???: Ồ thật là đáng tiếc, cậu vừa bỏ lỡ một cơ hội quan trong đấy",
+        "???: Thật là đáng tiếc..."
+    ],
+    "fourth_mission": [
+        "Thời Đăng: Được",
+        "???: Giao kèo. Khi ngày thi tới, ngủ đi và tôi sẽ lo liệu phần còn lại.",
+        "???: Giờ thì nhắm mắt lại, rồi tôi sẽ đưa cậu ra khỏi giấc mơ này."
+    ],
+    "consequence_one": [
+        "???: Một cô nhi viên đột ngột phát nổ, không một ai sống sót"
+    ],
+    "fifth_mission" : [
+        "Thời Đăng: Mong là kì thi này sẽ không có vấn đề gì xảy ra"
+    ],
+    "moving_screen_three" : [
+        "Minh Hàn: Oan gia ngõ hẹp thật đấy anh trai",
+        "Thời Đăng: Mày nín. Lần này tao cho mày ra bã mới thôi",
+        "Minh Hàn: Mạnh mồm gớm. Để em cho anh thấy nói trước bước không qua là như thế nào"
+    ],
+    "moving_screen_four" : [
+        "Thời Đăng: Cho mày chết này !",
+        "Thời Đăng: Chết này, cái tội khinh thường bố mày",
+        "Mọi người: THỜI ĐĂNG! DỪNG LẠI! DỪNG LẠI NGAY!"
+    ],
+    "moving_screen_five" : [
+        "Thời Đăng: Sao mình bị trói thế này? Không dùng lửa đốt được",
+        "Tấn Đại: Mày nghĩ sau khi làm Hàn thương nặng vậy tao vẫn để mày muốn làm gì thì làm ạ?",
+        "Thời Đăng: Mọi khi toàn anh em nay tự dưng lại đổi xưng hô vậy? ",  
+        "Thời Đăng: Mà sao thằng Hàn lại bị thương? Giờ nó sao rồi?",
+        "Tấn Đại: Đừng có giả nai với tao! Không phải nhờ ơn mày à?",
+        "Tấn Đại: Nếu mày vờ mất trí nhớ thì tao cũng không ngại nhắc lại đâu. Là chính mày đánh cho nó đi dạo một vòng Quỷ Môn Quan đấy!",
+        "Thời Đăng: Em… Em thật sự không nhớ gì hết!",
+        "Tấn Đại: Lo cho thân mày trước đi. Từ mai trở đi bọn tao sẽ cho mày thấy thế nào là địa ngục" 
+    ],
+    "moving_screen_six" : [
+        "Thời Đăng: Mọi người dừng lại đi, em đau quá !",
+        "Thời Đăng: Aaaaa"
+    ],
+    "moving_screen_seven" : [
+        "Thời Đăng: QUÁ ĐỦ RỒI",
+        "Thời Đăng: Đã tuyệt tình vậy thì có lẽ cũng chẳng cần cái thứ gọi là tình thân này nữa !"
+    ],
+    "moving_screen_eight" : [
+        "Minh Hàn: Ôi cái thân tôi! Mới 13 mà như 83 vậy. Ê ẩm chết mất!",
+        "Tấn Đại: Em ấy tỉnh rồi!",
+        "Minh Hàn: Mọi người đều ở đây à? Anh Đăng đâu rồi?",
+        "Hải Phong: Nó bỏ đi rồi. Thôi đừng nhắc cái thằng đó nữa. Sau khi đánh em thành ra thế này mà vẫn còn quan tâm nó à?",
+        "Minh Hàn: Không phải như mọi người nghĩ đâu. Nhất thời em không giải thích hết được, nhưng người lúc đó em chắc chắn không phải là Đăng",
+        "Cảnh Dương: Ý anh là sao?",
+        "Minh Hàn: Không còn thời gian nữa. Đưa anh đi tìm anh ấy nhanh. Anh có dự cảm không lành"
+    ],
+    "moving_screen_nine" : [
+        "Chí Tùng: Ở gốc cây hình như có người",
+        "Hải Phong: Thời Đăng… là em sao?",
+        "Thời Đăng: À không. Không phải đâu? Mấy người cũng biết mà? Thôi cái trò anh em sến súa lại đi nào. Nó làm tao thật buồn nôn",
+        "Tấn Đại: Thời Đăng! Em quay lại đi!",
+        "Thời Đăng: Thời Đăng? Ồ, nó chết rồi",
+        "Minh Đăng: Xin giới thiệu lại với chúng mày, tao là Minh Đăng. Minh trong u minh, không phải ba cái ánh sáng của lũ đạo đức giả chúng mày",
+        "Minh Hàn: Mày đây rồi",
+        "Minh Đăng: Xem thằng thất bại nào đây?",
+        "Minh Hàn: Trả anh ấy lại cho tao!"
+    ],
+    "moving_screen_ten": [
+        "Minh Đăng: Đáng thương thay những kẻ ngu ngốc và mù quáng. Thật ra sức mạnh thật của tao, ai đã thấy thì cũng chỉ có lần đó thôi",
+        "Minh Đăng: Đừng lo, ta sẽ thực hiện nguyện vọng của ngươi nửa kia ạ. Chúng sẽ phải trả giá, từng người một",
+        "Minh Hàn: Thời Đăng! Mau tỉnh lại! Đừng để hắn điều khiển anh!"
+    ],
+    "moving_screen_eleven" : [
+        "Minh Đăng: Sao cậu không đi ngủ tiếp đi? Chẳng phải tôi đang thực hiện nguyện vọng của chúng ta sao?",
+        "Thời Đăng: Bớt nhét chữ vào mồm tao ",
+        "Minh Đăng: Hơi sơ suất rồi. Ai ngờ cậu thoát ra được chứ.",
+        "Thời Đăng: Tao ngờ được. Mày làm gì đủ tuổi mà ngờ được như tao? Kết thúc được rồi đấy, thằng giả mạo"
+    ],
+    "good_ending" : [
+        "Minh Đăng: Dù cậu tiêu diệt tôi bao nhiêu lần tôi vẫn sẽ trở lại mà thôi. Những mảnh tàn hồn của tôi sẽ mãi tồn tại trong không gian này. Tới một lúc nào đó chúng ta sẽ lại gặp lại nhau"
+    ],
+    "consequence_two" : [
+        "Thời Đăng: Đăng về rồi đây!" 
+    ]
+    "Neutral Ending 1" : [
+        "Minh Hàn: Anh định đi đâu vậy?"
+        "Thời Đăng: Đâu cũng được, chỉ cần không thấy mặt họ thôi. Bốn bể là nhà thiếu gì chỗ."
+        "Tấn Đại: Bọn anh biết lỗi của mình rồi. Em quay lại đi. Bọn anh sẽ bù đắp cho em."
+        "Thời Đăng: Có những thứ không về được như lúc đầu. Cậu cũng hiểu điều đó mà."
+
+    ]
+}

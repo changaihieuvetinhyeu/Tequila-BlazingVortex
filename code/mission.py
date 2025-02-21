@@ -51,7 +51,7 @@ class Mission:
         return box_x, box_y
 
     def draw_speaker_box(self, speaker_name, box_x, box_y):
-        font = pygame.font.Font('data/fonts/FVF Fernando 08.ttf', 28)
+        font = pygame.font.Font('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/FVF Fernando 08.ttf', 28)
         text_surface = font.render(speaker_name, True, WHITE)  
         text_width = text_surface.get_width()
         text_height = font.size("T")[1]
@@ -99,7 +99,7 @@ class Mission:
         box_width = self.game.display_surface.get_width() * 0.9  
         box_height = self.game.display_surface.get_height() * 0.25
 
-        tip_font = pygame.font.Font('data/fonts/FVF Fernando 08.ttf', 24)
+        tip_font = pygame.font.Font('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/FVF Fernando 08.ttf', 24)
         tip_text = tip_font.render("Nhấn SPACE để bỏ qua", True, WHITE)
         tip_x = box_x + box_width - tip_text.get_width() - 20
         tip_y = box_y + box_height - tip_text.get_height() - 15  
@@ -108,7 +108,7 @@ class Mission:
         if self.speaker_name:
             self.draw_speaker_box(self.speaker_name.strip(), box_x, box_y)
 
-        font = pygame.font.Font('data/fonts/FVF Fernando 08.ttf', 32)
+        font = pygame.font.Font('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/FVF Fernando 08.ttf', 32)
         box_width -= 40  
 
         words = self.typed_text.split()

@@ -8,7 +8,7 @@ from pytmx.util_pygame import load_pygame
 from groups import AllSprites
 from mission import Mission
 from intro import intro_screen, pause_screen
-from battle import *
+import random
 
 class Game:
     def __init__(self):
@@ -45,8 +45,13 @@ class Game:
         self.achievement_speed = 600  # Tốc độ thụt vào của thông báo
         self.achievement_x = self.display_surface.get_width()
         
+    def draw_text(self, text, x, y, color=(255, 255, 255)):
+        font = pygame.font.Font("C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/FVF Fernando 08.ttf", 36)
+        text_surface = font.render(text, True, color)
+        self.display_surface.blit(text_surface, (x, y))
+        
     def load_dialogues(self):
-        with open('Tequila-BlazerVortex-main/code/dialogues.json', 'r', encoding='utf-8') as f:
+        with open('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/code/dialogues.json', 'r', encoding='utf-8') as f:
             return json.load(f)
 
     def clear_sprites(self):
@@ -55,7 +60,7 @@ class Game:
         self.enemy_sprites.empty()
 
     def setup(self, map_name):
-        map = load_pygame(join('Tequila-BlazerVortex-main', 'data', 'maps', map_name))
+        map = load_pygame(join('Tequila-BlazingVortex-main', 'data', 'maps', map_name))
         self.map = map
         ground_layer = map.get_layer_by_name("Ground")
         if ground_layer:
@@ -67,9 +72,9 @@ class Game:
             for obj in entities_layer:
                 if obj.name == "Player":
                     self.player = Player((obj.x, obj.y), self.all_sprites, self.collision_sprites)
-
+        
     def first_one_dialog(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/controversy.jpeg').convert()
+        self.background = pygame.image.load('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/controversy.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -77,12 +82,11 @@ class Game:
             self.dialogues["first_one_dialog"],
             fill_screen=False,
             sound_file=None,
-            on_complete=lambda: self.transition(self.mini_game_two)
+            on_complete=lambda: self.transition(self.first_two_dialog)
         )
-
-
+        
     def first_two_dialog(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/fight1.png').convert()
+        self.background = pygame.image.load('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/fight1.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -90,23 +94,145 @@ class Game:
             self.dialogues["first_two_dialog"],
             fill_screen=False,
             sound_file=None,
-            on_complete=lambda: self.transition(self.second_one_dialogue)
+            on_complete=lambda: self.transition(self.mini_game_two_1)
         )
+        
+    def mini_game_two_1(self):
+        self.background = pygame.image.load('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/nature.png').convert()
+        self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
+        
+        self.player_A_img = pygame.image.load("C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/player/TD/right/0.png").convert_alpha()
+        self.player_B_img = pygame.image.load("C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/player/MH/left/0.png").convert_alpha()
+        
+        self.player_A_img = pygame.transform.scale(self.player_A_img, (300, 300))
+        self.player_B_img = pygame.transform.scale(self.player_B_img, (300, 300))
+        
+        # Thiết lập vị trí nhân vật
+        self.player_A_rect = self.player_A_img.get_rect(topleft=(200, 400))
+        self.player_B_rect = self.player_B_img.get_rect(topright=(1300, 400))
+        
+        # HP
+        self.player_A_hp = 100
+        self.player_B_hp = 100
+        
+        self.turn = "Thời Đăng"
+        self.running = True
+        
+        while self.running:
+            
+            self.display_surface.blit(self.background, (0, 0, 0, 0))
+            self.display_surface.blit(self.player_A_img, self.player_A_rect)
+            self.display_surface.blit(self.player_B_img, self.player_B_rect)
+            self.draw_text(f"HP Thời Đăng: {self.player_A_hp}", 150,300, (255, 0, 0))
+            self.draw_text(f"HP Minh Hàn: {self.player_B_hp}", 900, 300, (255, 0, 0))
+            self.draw_text(f"Lượt: {self.turn}", 550, 50)
+            
+            pygame.display.update()
+            
+            if self.player_B_hp <= 1:
+                for i in range(5):
+                    self.player_A_rect.x -= 10
+                    self.player_B_rect.x -= 10
+                    pygame.time.delay(100)
+                self.player_A_hp = 0
+                self.display_surface.blit(self.background, (0, 0, 0, 0))
+                self.display_surface.blit(self.player_A_img, self.player_A_rect)
+                self.display_surface.blit(self.player_B_img, self.player_B_rect)
+                self.draw_text(f"HP Thời Đăng: {self.player_A_hp}", 150, 300, (255, 0, 0))
+                self.draw_text(f"HP Minh Hàn: {self.player_B_hp}", 900, 300, (255, 0, 0))
+                self.draw_text(f"Lượt: {self.turn}", 550, 50)
+                pygame.display.update()
+                pygame.time.delay(500)
+                for i in range(5):
+                    self.player_A_rect.x += 10
+                    self.player_B_rect.x += 10
+                    pygame.time.delay(100)
+                pygame.display.update()
+                self.transition(self.second_one_dialogue)
+            elif self.player_A_hp <= 0:
+                pygame.display.update()
+                self.transition(self.second_one_dialogue)
+            else:
+                self.draw_text("A - Attack | S - Heal", 550, 700)
+            
+                pygame.display.update()
+            
+                if self.turn == "Thời Đăng":
+                    for event in pygame.event.get():
+                    
+                        if event.type == pygame.KEYDOWN:
+                            if self.player_A_hp > 0 and self.player_B_hp > 0:
+                                if event.key == pygame.K_a:
+                                    for i in range(5):
+                                        self.player_A_rect.x += 10
+                                        self.player_B_rect.x += 10
+                                        pygame.time.delay(100)
+                                    damage = random.randint(10, 20)
+                                    self.player_B_hp -= (damage if self.player_B_hp > damage else self.player_B_hp)
+                                    if self.player_B_hp == 0: self.player_B_hp = 1
+                                    self.display_surface.blit(self.background, (0, 0, 0, 0))
+                                    self.display_surface.blit(self.player_A_img, self.player_A_rect)
+                                    self.display_surface.blit(self.player_B_img, self.player_B_rect)
+                                    self.draw_text(f"HP Thời Đăng: {self.player_A_hp}", 150, 300, (255, 0, 0))
+                                    self.draw_text(f"HP Minh Hàn: {self.player_B_hp}", 900, 300, (255, 0, 0))
+                                    self.draw_text(f"Lượt: {self.turn}", 550, 50)
+                                    pygame.display.update()
+                                    pygame.time.delay(500)
+                                    for i in range(5):
+                                        self.player_A_rect.x -= 10
+                                        self.player_B_rect.x -= 10
+                                        pygame.time.delay(100)
+                                    pygame.display.update()
+                                elif event.key == pygame.K_s:
+                                    heal = random.randint(5, 15)
+                                    self.player_A_hp = (100 if self.player_A_hp + heal > 100 else self.player_A_hp + heal)
+                                self.turn = "Minh Hàn"
+                else:
+                    pygame.time.delay(1000)
+                    action = random.choice(["attack", "heal"])
+                    if action == "attack":
+                        for i in range(5):
+                            self.player_A_rect.x -= 10
+                            self.player_B_rect.x -= 10
+                            pygame.time.delay(100)
+                        damage = random.randint(15, 30)
+                    
+                        self.player_A_hp -= (damage if self.player_A_hp > damage else self.player_A_hp)
+                        self.display_surface.blit(self.background, (0, 0, 0, 0))
+                        self.display_surface.blit(self.player_A_img, self.player_A_rect)
+                        self.display_surface.blit(self.player_B_img, self.player_B_rect)
+                        self.draw_text(f"HP Thời Đăng: {self.player_A_hp}", 150, 300, (255, 0, 0))
+                        self.draw_text(f"HP Minh Hàn: {self.player_B_hp}", 900, 300, (255, 0, 0))
+                        self.draw_text(f"Lượt: {self.turn}", 550, 50)
+                        pygame.display.update()
+                        pygame.time.delay(100)
+                        for i in range(5):
+                            self.player_A_rect.x += 10
+                            self.player_B_rect.x += 10
+                            pygame.time.delay(100)
+                    else:
+                        heal = random.randint(5, 20)
+                        self.player_B_hp = (100 if self.player_B_hp + heal > 100 else self.player_B_hp + heal)
+                    self.turn = "Thời Đăng"
+                pygame.time.delay(500)
+                pygame.display.update()
+        
+        self.transition(self.second_one_dialogue)
 
     def second_one_dialogue(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/defeat1.png').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/defeat1.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
             self,
             self.dialogues["second_one_dialogue"],
             fill_screen=False,
-            sound_file='Tequila-BlazerVortex-main/sound/punch.mp3',
+            sound_file='c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/sound/punch.mp3',
             on_complete=lambda: self.transition(self.second_two_dialogue)
         )
 
     def second_two_dialogue(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/wakinup.jpeg').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/wakinup.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -135,7 +261,7 @@ class Game:
     def third_mission(self):
         self.clear_sprites()
         self.show_timer = False
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/firstmeet.jpg').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/firstmeet.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, -100))
         self.dialogue = Mission(
@@ -147,7 +273,7 @@ class Game:
 
     def bad_ending(self):
         self.show_choice = False
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/firstmeet.jpg').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/firstmeet.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -160,7 +286,7 @@ class Game:
     
     def consequence_one(self):
         self.show_choice = False
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/BE2.png').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/BE2.png').convert()
         self.dialogue = Mission(
             self,
             self.dialogues["consequence_one"],
@@ -174,7 +300,7 @@ class Game:
 
     def fourth_mission(self):
         self.show_choice = False
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/firstmeet.jpg').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/firstmeet.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -199,7 +325,7 @@ class Game:
 
     def fifth_mission(self):
         self.show_choice = False
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/revenge3.png').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/revenge3.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -211,7 +337,7 @@ class Game:
         )
 
     def moving_screen_three(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/fight2.png').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/fight2.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -219,15 +345,134 @@ class Game:
             self.dialogues["moving_screen_three"],
             fill_screen=False,
             sound_file=None,
-            on_complete=lambda: self.transition(self.mini_game_two)
+            on_complete=lambda: self.transition(self.mini_game_two_2)
         )
 
-    def mini_game_two(self):
-        pass
+    def mini_game_two_2(self):
+        self.background = pygame.image.load('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/arena.png').convert()
+        self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
+        
+        self.player_A_img = pygame.image.load("C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/player/MH/right/0.png").convert_alpha()
+        self.player_B_img = pygame.image.load("C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/player/TD/left/0.png").convert_alpha()
+        
+        self.player_A_img = pygame.transform.scale(self.player_A_img, (300, 300))
+        self.player_B_img = pygame.transform.scale(self.player_B_img, (300, 300))
+        
+        # Thiết lập vị trí nhân vật
+        self.player_A_rect = self.player_A_img.get_rect(topleft=(200, 400))
+        self.player_B_rect = self.player_B_img.get_rect(topright=(1300, 400))
+        
+        # HP
+        self.player_A_hp = 100
+        self.player_B_hp = 100
+        
+        self.turn = "Minh Hàn"
+        self.running = True
+        
+        while self.running:
+            
+            self.display_surface.blit(self.background, (0, 0))
+            self.display_surface.blit(self.player_A_img, self.player_A_rect)
+            self.display_surface.blit(self.player_B_img, self.player_B_rect)
+            self.draw_text(f"HP Minh Hàn: {self.player_A_hp}", 150,300, (255, 0, 0))
+            self.draw_text(f"HP Thời Đăng: {self.player_B_hp}", 900, 300, (255, 0, 0))
+            self.draw_text(f"Lượt: {self.turn}", 550, 50)
+            
+            pygame.display.update()
+            
+            if self.player_B_hp <= 1:
+                for i in range(5):
+                    self.player_A_rect.x -= 10
+                    self.player_B_rect.x -= 10
+                    pygame.time.delay(100)
+                self.player_A_hp = 0
+                self.display_surface.blit(self.background, (0, 0, 0, 0))
+                self.display_surface.blit(self.player_A_img, self.player_A_rect)
+                self.display_surface.blit(self.player_B_img, self.player_B_rect)
+                self.draw_text(f"HP Minh Hàn: {self.player_A_hp}", 150,300, (255, 0, 0))
+                self.draw_text(f"HP Thời Đăng: {self.player_B_hp}", 900, 300, (255, 0, 0))
+                self.draw_text(f"Lượt: {self.turn}", 550, 50)
+                pygame.display.update()
+                pygame.time.delay(500)
+                for i in range(5):
+                    self.player_A_rect.x += 10
+                    self.player_B_rect.x += 10
+                    pygame.time.delay(100)
+                pygame.display.update()
+                break
+            elif self.player_A_hp <= 0:
+                pygame.display.update()
+                break
+            else:
+                self.draw_text("A - Attack | S - Heal", 550, 700)
+            
+                pygame.display.update()
+            
+                if self.turn == "Minh Hàn":
+                    for event in pygame.event.get():
+                    
+                        if event.type == pygame.KEYDOWN:
+                            if self.player_A_hp > 0 and self.player_B_hp > 0:
+                                if event.key == pygame.K_a:
+                                    for i in range(5):
+                                        self.player_A_rect.x += 10
+                                        self.player_B_rect.x += 10
+                                        pygame.time.delay(100)
+                                    damage = random.randint(10, 20)
+                                    self.player_B_hp -= (damage if self.player_B_hp > damage else self.player_B_hp)
+                                    if self.player_B_hp == 0: self.player_B_hp = 1
+                                    self.display_surface.blit(self.background, (0, 0, 0, 0))
+                                    self.display_surface.blit(self.player_A_img, self.player_A_rect)
+                                    self.display_surface.blit(self.player_B_img, self.player_B_rect)
+                                    self.draw_text(f"HP Minh Hàn: {self.player_A_hp}", 150,300, (255, 0, 0))
+                                    self.draw_text(f"HP Thời Đăng: {self.player_B_hp}", 900, 300, (255, 0, 0))
+                                    self.draw_text(f"Lượt: {self.turn}", 550, 50)
+                                    pygame.display.update()
+                                    pygame.time.delay(500)
+                                    for i in range(5):
+                                        self.player_A_rect.x -= 10
+                                        self.player_B_rect.x -= 10
+                                        pygame.time.delay(100)
+                                    pygame.display.update()
+                                elif event.key == pygame.K_s:
+                                    heal = random.randint(5, 15)
+                                    self.player_A_hp = (100 if self.player_A_hp + heal > 100 else self.player_A_hp + heal)
+                                self.turn = "Thời Đăng"
+                else:
+                    pygame.time.delay(1000)
+                    action = random.choice(["attack", "heal"])
+                    if action == "attack":
+                        for i in range(5):
+                            self.player_A_rect.x -= 10
+                            self.player_B_rect.x -= 10
+                            pygame.time.delay(100)
+                        damage = random.randint(15, 30)
+                    
+                        self.player_A_hp -= (damage if self.player_A_hp > damage else self.player_A_hp)
+                        self.display_surface.blit(self.background, (0, 0, 0, 0))
+                        self.display_surface.blit(self.player_A_img, self.player_A_rect)
+                        self.display_surface.blit(self.player_B_img, self.player_B_rect)
+                        self.draw_text(f"HP Minh Hàn: {self.player_A_hp}", 150,300, (255, 0, 0))
+                        self.draw_text(f"HP Thời Đăng: {self.player_B_hp}", 900, 300, (255, 0, 0))
+                        self.draw_text(f"Lượt: {self.turn}", 550, 50)
+                        pygame.display.update()
+                        pygame.time.delay(100)
+                        for i in range(5):
+                            self.player_A_rect.x += 10
+                            self.player_B_rect.x += 10
+                            pygame.time.delay(100)
+                    else:
+                        heal = random.randint(5, 20)
+                        self.player_B_hp = (100 if self.player_B_hp + heal > 100 else self.player_B_hp + heal)
+                    self.turn = "Minh Hàn"
+                pygame.time.delay(500)
+                pygame.display.update()
+        
+        self.transition(self.moving_screen_four)
 
 
     def moving_screen_four(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/firstmeet.jpg').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/firstmeet.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -239,7 +484,7 @@ class Game:
         )
 
     def moving_screen_five(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/bounded.jpg').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/bounded.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -251,7 +496,7 @@ class Game:
         )
     
     def moving_screen_six(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/revenge2.png').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/revenge2.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -263,7 +508,7 @@ class Game:
         )
 
     def moving_screen_seven(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/outburst.png').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/outburst.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -287,7 +532,7 @@ class Game:
         self.dialogue.show_dialog = self.dialogue.show_centered_text
 
     def moving_screen_eight(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/wakinup2.png').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/wakinup2.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -302,7 +547,7 @@ class Game:
         pass
         
     def moving_screen_nine(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/firstmeet.jpg').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/firstmeet.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -314,7 +559,7 @@ class Game:
         )
 
     def moving_screen_ten(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/firstmeet.jpg').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/firstmeet.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -326,7 +571,7 @@ class Game:
         )
 
     def moving_screen_eleven(self):
-        self.background = pygame.image.load('Tequila-BlazerVortex-main/images/background/firstmeet.jpg').convert()
+        self.background = pygame.image.load('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/firstmeet.png').convert()
         self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
         self.display_surface.blit(self.background, (0, 0))
         self.dialogue = Mission(
@@ -337,8 +582,122 @@ class Game:
             on_complete=lambda: self.transition(self.final_battle)
         )
 
+    def fade_out(self, player_img, player_rect):
+        for alpha in range(255, 0, -15):
+            player_img.set_alpha(alpha)
+            self.update_screen()
+            pygame.time.delay(50)
+
     def final_battle(self):
-        pass
+        self.background = pygame.image.load('C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/background/nature.png').convert()
+        self.background = pygame.transform.scale(self.background, (WINDOW_WIDTH, WINDOW_HEIGHT))
+        
+        self.player_A_img = pygame.image.load("C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/player/TD/right/0.png").convert_alpha()
+        self.player_B_img = pygame.image.load("C:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/images/player/MĐ/left/0.png").convert_alpha()
+        
+        self.player_A_img = pygame.transform.scale(self.player_A_img, (300, 300))
+        self.player_B_img = pygame.transform.scale(self.player_B_img, (300, 300))
+        
+        # Thiết lập vị trí nhân vật
+        self.player_A_rect = self.player_A_img.get_rect(topleft=(200, 400))
+        self.player_B_rect = self.player_B_img.get_rect(topright=(1300, 400))
+        
+        # HP
+        self.player_A_hp = 100
+        self.player_B_hp = 100
+        
+        self.turn = "Thời Đăng"
+        self.running = True
+        
+        while self.running:
+            
+            self.display_surface.blit(self.background, (0, 0, 0, 0))
+            self.display_surface.blit(self.player_A_img, self.player_A_rect)
+            self.display_surface.blit(self.player_B_img, self.player_B_rect)
+            self.draw_text(f"HP Thời Đăng: {self.player_A_hp}", 150,300, (255, 0, 0))
+            self.draw_text(f"HP Minh Đăng: {self.player_B_hp}", 900, 300, (255, 0, 0))
+            self.draw_text(f"Lượt: {self.turn}", 550, 50)
+            
+            pygame.display.update()
+            
+            if self.player_B_hp <= 0:
+                #Bad ending1
+                pygame.display.update()
+                self.fade_out(self.player_B_img, self.player_B_rect)
+                pygame.time.delay(2000)
+                self.transition(self.second_one_dialogue)
+            elif self.player_A_hp <= 0:
+                pygame.display.update()
+                self.fade_out(self.player_A_img, self.player_A_rect)
+                pygame.time.delay(2000)
+                #good_ending
+                self.transition(self.second_one_dialogue)
+            else:
+                self.draw_text("A - Attack | S - Heal", 550, 700)
+            
+                pygame.display.update()
+            
+                if self.turn == "Thời Đăng":
+                    for event in pygame.event.get():
+                    
+                        if event.type == pygame.KEYDOWN:
+                            if self.player_A_hp > 0 and self.player_B_hp > 0:
+                                if event.key == pygame.K_a:
+                                    for i in range(5):
+                                        self.player_A_rect.x += 10
+                                        self.player_B_rect.x += 10
+                                        pygame.time.delay(100)
+                                    damage = random.randint(10, 20)
+                                    self.player_B_hp -= (damage if self.player_B_hp > damage else self.player_B_hp)
+                                    if self.player_B_hp == 0: self.player_B_hp = 1
+                                    self.display_surface.blit(self.background, (0, 0, 0, 0))
+                                    self.display_surface.blit(self.player_A_img, self.player_A_rect)
+                                    self.display_surface.blit(self.player_B_img, self.player_B_rect)
+                                    self.draw_text(f"HP Thời Đăng: {self.player_A_hp}", 150, 300, (255, 0, 0))
+                                    self.draw_text(f"HP Minh Đăng: {self.player_B_hp}", 900, 300, (255, 0, 0))
+                                    self.draw_text(f"Lượt: {self.turn}", 550, 50)
+                                    pygame.display.update()
+                                    pygame.time.delay(500)
+                                    for i in range(5):
+                                        self.player_A_rect.x -= 10
+                                        self.player_B_rect.x -= 10
+                                        pygame.time.delay(100)
+                                    pygame.display.update()
+                                elif event.key == pygame.K_s:
+                                    heal = random.randint(5, 15)
+                                    self.player_A_hp = (100 if self.player_A_hp + heal > 100 else self.player_A_hp + heal)
+                                self.turn = "Minh Đăng"
+                else:
+                    pygame.time.delay(1000)
+                    action = random.choice(["attack", "heal"])
+                    if action == "attack":
+                        for i in range(5):
+                            self.player_A_rect.x -= 10
+                            self.player_B_rect.x -= 10
+                            pygame.time.delay(100)
+                        damage = random.randint(15, 30)
+                    
+                        self.player_A_hp -= (damage if self.player_A_hp > damage else self.player_A_hp)
+                        self.display_surface.blit(self.background, (0, 0, 0, 0))
+                        self.display_surface.blit(self.player_A_img, self.player_A_rect)
+                        self.display_surface.blit(self.player_B_img, self.player_B_rect)
+                        self.draw_text(f"HP Thời Đăng: {self.player_A_hp}", 150, 300, (255, 0, 0))
+                        self.draw_text(f"HP Minh Đăng: {self.player_B_hp}", 900, 300, (255, 0, 0))
+                        self.draw_text(f"Lượt: {self.turn}", 550, 50)
+                        pygame.display.update()
+                        pygame.time.delay(100)
+                        for i in range(5):
+                            self.player_A_rect.x += 10
+                            self.player_B_rect.x += 10
+                            pygame.time.delay(100)
+                    else:
+                        heal = random.randint(5, 20)
+                        self.player_B_hp = (100 if self.player_B_hp + heal > 100 else self.player_B_hp + heal)
+                    self.turn = "Thời Đăng"
+                pygame.time.delay(500)
+                pygame.display.update()
+        
+        self.transition(self.second_one_dialogue)
 
     def good_ending(self):
         self.show_choice = False
@@ -379,7 +738,7 @@ class Game:
         self.first_one_dialog()
 
     def draw_timer(self):
-        font = pygame.font.Font("Tequila-BlazerVortex-main/data/fonts/Font.ttf", 32)
+        font = pygame.font.Font("c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/Font.ttf", 32)
         timer_text = font.render(f"Thời gian còn lại: {int(self.timer)}", True, WHITE)
         self.display_surface.blit(timer_text, (10, 10))
 
@@ -396,11 +755,11 @@ class Game:
                     self.transition(self.bad_ending)
 
     def show_choice_ui(self, yes_button, no_button):
-        question_font = pygame.font.Font('Tequila-BlazerVortex-main/data/fonts/Font.ttf', 32)
+        question_font = pygame.font.Font('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/Font.ttf', 32)
         question_text = question_font.render("Quyết định của bạn là gì?", True, WHITE)
         self.display_surface.blit(question_text, (WINDOW_WIDTH // 2 - question_text.get_width() // 2, WINDOW_HEIGHT // 2 - 100))
 
-        button_font = pygame.font.Font('Tequila-BlazerVortex-main/data/fonts/Font.ttf', 28)
+        button_font = pygame.font.Font('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/Font.ttf', 28)
         yes_text = button_font.render("Có", True, WHITE)
         no_text = button_font.render("Không", True, WHITE)
 
@@ -430,7 +789,7 @@ class Game:
             "Bấm ESC để tạm dừng"
         ]
 
-        font = pygame.font.Font('Tequila-BlazerVortex-main/data/fonts/Font.ttf', 18)
+        font = pygame.font.Font('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/Font.ttf', 18)
         text_surfaces = [font.render(line, True, WHITE) for line in guide_text]
         max_line_width = max(surface.get_width() for surface in text_surfaces)
         total_height = sum(surface.get_height() for surface in text_surfaces) + (len(text_surfaces) - 1) * 5
@@ -468,7 +827,7 @@ class Game:
             "Chào mừng đến với thế giới của chúng tôi"
         ]
 
-        font = pygame.font.Font('Tequila-BlazerVortex-main/data/fonts/Font.ttf', 18)
+        font = pygame.font.Font('c:/Users/Dell/Downloads/Game concept/Graphics/Tequila-BlazingVortex-main/data/fonts/Font.ttf', 18)
         text_surfaces = [font.render(line, True, WHITE) for line in guide_text]
         max_line_width = max(surface.get_width() for surface in text_surfaces)
         total_height = sum(surface.get_height() for surface in text_surfaces) + (len(text_surfaces) - 1) * 5
@@ -594,8 +953,7 @@ class Game:
             if self.dialogue and self.dialogue.running:
                 self.dialogue.show_dialog()
 
-            if self.dialogue and self.dialogue.show_achievement_text:
-                self.dialogue.update_achievement(dt)
+
 
             if self.show_timer and self.show_guide:
                 self.draw_timer()
